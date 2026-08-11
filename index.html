@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samy Naoue — Ingénieur Automatisme & Systèmes de Contrôle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B1220;
+    --panel: #10192C;
+    --panel-2: #141F36;
+    --grid-line: rgba(126,166,255,0.07);
+    --ink: #E8ECF2;
+    --ink-dim: #8C9AB8;
+    --ink-faint: #5C6786;
+    --green: #6EE7B0;
+    --amber: #E8A23A;
+    --rule: #24314D;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
+      var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{color:inherit;}
+  :focus-visible{outline: 2px solid var(--green); outline-offset: 3px;}
+
+  .wrap{max-width: 1080px; margin: 0 auto; padding: 0 28px;}
+
+  /* ---------- corner-bracket signature motif ---------- */
+  .tag{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    gap:.5em;
+    font-family:var(--mono);
+    font-size:.78rem;
+    letter-spacing:.12em;
+    color: var(--green);
+    text-transform:uppercase;
+    padding: 6px 14px;
+    border: 1px solid var(--rule);
+  }
+  .tag::before,.tag::after{
+    content:"";
+    position:absolute;
+    width:7px; height:7px;
+    border: 1px solid var(--green);
+    opacity:.9;
+  }
+  .tag::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .tag::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+
+  .tag.amber{ color: var(--amber); }
+  .tag.amber::before, .tag.amber::after{ border-color: var(--amber); }
+
+  /* ---------- nav ---------- */
+  .nav{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(11,18,32,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 28px; max-width: 1080px; margin:0 auto;
+  }
+  .brand{
+    font-family: var(--mono); font-weight:600; font-size:.95rem;
+    letter-spacing:.06em;
+  }
+  .brand span{ color: var(--green); }
+  .nav-links{ display:flex; gap: 28px; list-style:none; }
+  .nav-links a{
+    font-family: var(--mono); font-size:.78rem; text-decoration:none;
+    color: var(--ink-dim); letter-spacing:.08em; text-transform:uppercase;
+    transition: color .15s ease;
+  }
+  .nav-links a:hover{ color: var(--ink); }
+  .status-pill{
+    display:flex; align-items:center; gap:8px;
+    font-family: var(--mono); font-size:.72rem; color: var(--ink-dim);
+    letter-spacing:.06em;
+  }
+  .dot{ width:7px; height:7px; border-radius:50%; background: var(--green);
+    box-shadow: 0 0 0 3px rgba(110,231,176,0.18); }
+  @media (prefers-reduced-motion: no-preference){
+    .dot{ animation: pulse 2.4s ease-in-out infinite; }
+  }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.45;} }
+  @media (max-width: 760px){ .nav-links, .status-pill{ display:none; } }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 88px 0 64px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.15fr .85fr; gap: 56px; align-items:center;
+  }
+  @media (max-width: 860px){ .hero-grid{ grid-template-columns: 1fr; } }
+
+  .eyebrow{
+    font-family: var(--mono); font-size:.8rem; color: var(--green);
+    letter-spacing:.14em; text-transform:uppercase; margin-bottom: 22px;
+    display:block;
+  }
+  h1{
+    font-family: var(--mono); font-weight:700;
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    letter-spacing:-.01em; line-height:1.05; margin-bottom: 18px;
+  }
+  .hero-sub{
+    font-size: 1.15rem; color: var(--ink); max-width: 46ch; margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .hero-body{
+    color: var(--ink-dim); max-width: 50ch; margin-bottom: 34px; font-size: .98rem;
+  }
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family: var(--mono); font-size:.82rem; letter-spacing:.05em;
+    padding: 13px 22px; text-decoration:none; text-transform:uppercase;
+    border: 1px solid var(--rule); transition: all .15s ease;
+    display:inline-block;
+  }
+  .btn-primary{ background: var(--green); color:#0B1220; border-color: var(--green); font-weight:600; }
+  .btn-primary:hover{ background:#8CF0C2; }
+  .btn-ghost{ color: var(--ink); }
+  .btn-ghost:hover{ border-color: var(--ink-dim); }
+
+  /* ---------- hero visual: attitude-control diagram ---------- */
+  .scope{
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    padding: 20px;
+    position:relative;
+  }
+  .scope::before, .scope::after{
+    content:""; position:absolute; width:10px; height:10px;
+    border: 1px solid var(--ink-faint);
+  }
+  .scope::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .scope::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+  .scope-head{
+    display:flex; justify-content:space-between; font-family:var(--mono);
+    font-size:.68rem; color: var(--ink-faint); letter-spacing:.08em;
+    margin-bottom: 10px; text-transform:uppercase;
+  }
+  .scope svg{ width:100%; height:auto; display:block; }
+  .orbit{ stroke: var(--rule); stroke-dasharray: 3 4; fill:none; }
+  .sat-group{ transform-origin: 130px 130px; }
+  @media (prefers-reduced-motion: no-preference){
+    .sat-group{ animation: settle 3.4s cubic-bezier(.2,.9,.25,1) 1 both; }
+  }
+  @keyframes settle{
+    0%   { transform: rotate(34deg); }
+    35%  { transform: rotate(-14deg); }
+    55%  { transform: rotate(7deg); }
+    72%  { transform: rotate(-3deg); }
+    85%  { transform: rotate(1.2deg); }
+    100% { transform: rotate(0deg); }
+  }
+  .thruster{ opacity:0; }
+  @media (prefers-reduced-motion: no-preference){
+    .thruster{ animation: puff 3.4s ease-in-out 1 both; }
+  }
+  @keyframes puff{
+    0%,30%{ opacity:0; } 34%{ opacity:1; } 46%{ opacity:0; }
+    50%,60%{opacity:0;} 63%{opacity:.8;} 70%{opacity:0;}
+    100%{opacity:0;}
+  }
+  .telemetry{
+    margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--rule);
+    font-family: var(--mono); font-size:.74rem; color: var(--ink-dim);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+  .telemetry b{ color: var(--green); font-weight:600; }
+
+  /* ---------- section shell ---------- */
+  section{ padding: 76px 0; border-bottom: 1px solid var(--rule); }
+  .sec-head{ margin-bottom: 40px; }
+  .sec-title{
+    font-family: var(--mono); font-weight:600; font-size: 1.7rem;
+    margin-top: 16px; letter-spacing:-.01em;
+  }
+  .sec-note{ color: var(--ink-dim); margin-top: 10px; max-width: 62ch; font-size:.95rem; }
+
+  /* ---------- profile ---------- */
+  .profile-grid{ display:grid; grid-template-columns: 1.1fr .9fr; gap: 48px; }
+  @media (max-width: 860px){ .profile-grid{ grid-template-columns: 1fr; } }
+  .profile-text p{ color: var(--ink-dim); margin-bottom: 16px; font-size: .98rem; }
+  .profile-text strong{ color: var(--ink); font-weight:600; }
+
+  .spec-sheet{ border: 1px solid var(--rule); }
+  .spec-row{
+    display:grid; grid-template-columns: 120px 1fr;
+    padding: 14px 18px; border-bottom: 1px solid var(--rule); gap: 16px;
+  }
+  .spec-row:last-child{ border-bottom:none; }
+  .spec-row .k{ font-family: var(--mono); font-size:.72rem; color: var(--ink-faint);
+    text-transform:uppercase; letter-spacing:.07em; padding-top:2px; }
+  .spec-row .v{ font-size:.92rem; color: var(--ink); }
+
+  .quote-block{
+    margin-top: 26px; padding: 18px 20px; border-left: 2px solid var(--amber);
+    background: var(--panel); font-size:.92rem; color: var(--ink-dim);
+  }
+  .quote-block cite{ display:block; margin-top:8px; font-family:var(--mono);
+    font-style:normal; font-size:.72rem; color: var(--ink-faint); letter-spacing:.05em; }
+
+  /* ---------- projects ---------- */
+  .proj-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  @media (max-width: 760px){ .proj-grid{ grid-template-columns: 1fr; } }
+  .card{
+    position:relative;
+    background: var(--panel); border: 1px solid var(--rule);
+    padding: 26px; transition: border-color .15s ease, transform .15s ease;
+  }
+  .card::before, .card::after{
+    content:""; position:absolute; width:8px; height:8px;
+    border: 1px solid var(--ink-faint); opacity:.6;
+  }
+  .card::before{ top:-1px; left:-1px; border-right:none; border-bottom:none; }
+  .card::after{ bottom:-1px; right:-1px; border-left:none; border-top:none; }
+  .card:hover{ border-color: var(--green); transform: translateY(-2px); }
+  .card h3{ font-family: var(--mono); font-size: 1.02rem; margin-bottom:10px; font-weight:600; }
+  .card p{ color: var(--ink-dim); font-size:.9rem; margin-bottom: 16px; }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-family: var(--mono); font-size:.68rem; color: var(--ink-dim);
+    border: 1px solid var(--rule); padding: 4px 9px; letter-spacing:.03em;
+  }
+
+  /* ---------- skills ---------- */
+  .skill-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  @media (max-width: 860px){ .skill-grid{ grid-template-columns: 1fr; } }
+  .skill-col h4{
+    font-family: var(--mono); font-size:.82rem; color: var(--amber);
+    text-transform:uppercase; letter-spacing:.08em; margin-bottom: 16px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--rule);
+  }
+  .skill-col ul{ list-style:none; }
+  .skill-col li{
+    font-size:.92rem; color: var(--ink-dim); padding: 7px 0;
+    display:flex; gap:10px; align-items:baseline;
+  }
+  .skill-col li::before{ content:"—"; color: var(--ink-faint); flex-shrink:0; }
+
+  /* ---------- certifications ---------- */
+  .cert-list{ display:flex; flex-direction:column; gap:1px; background: var(--rule); }
+  .cert-row{
+    background: var(--panel); padding: 20px 24px;
+    display:grid; grid-template-columns: 1fr auto auto; gap: 18px; align-items:center;
+  }
+  @media (max-width: 700px){ .cert-row{ grid-template-columns: 1fr; text-align:left; } }
+  .cert-name{ font-weight:600; font-size:.96rem; }
+  .cert-meta{ font-family: var(--mono); font-size:.74rem; color: var(--ink-faint); margin-top:4px; }
+  .cert-hours{ font-family: var(--mono); font-size:.82rem; color: var(--green); white-space:nowrap; }
+  .cert-date{ font-family: var(--mono); font-size:.78rem; color: var(--ink-dim); white-space:nowrap; }
+
+  /* ---------- availability / contact ---------- */
+  .avail{
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    padding: 44px;
+    display:grid; grid-template-columns: 1.3fr .7fr; gap: 40px; align-items:center;
+  }
+  @media (max-width: 800px){ .avail{ grid-template-columns:1fr; padding: 30px; } }
+  .avail h3{ font-family: var(--mono); font-size:1.3rem; margin-bottom: 12px; }
+  .avail p{ color: var(--ink-dim); font-size:.95rem; margin-bottom: 8px; }
+  .avail .targets{ margin-top: 14px; display:flex; flex-wrap:wrap; gap:8px; }
+  .contact-links{ display:flex; flex-direction:column; gap: 12px; }
+  .contact-links a{
+    font-family: var(--mono); font-size:.85rem; text-decoration:none;
+    color: var(--ink-dim); border-bottom: 1px dashed var(--rule); padding-bottom: 6px;
+    transition: color .15s ease;
+  }
+  .contact-links a:hover{ color: var(--green); }
+
+  /* ---------- experience log ---------- */
+  .xp-list{ display:flex; flex-direction:column; }
+  .xp-row{
+    display:grid; grid-template-columns: 130px 1fr; gap: 24px;
+    padding: 24px 0; border-top: 1px solid var(--rule);
+  }
+  .xp-row:last-child{ border-bottom: 1px solid var(--rule); }
+  @media (max-width: 640px){ .xp-row{ grid-template-columns: 1fr; gap: 6px; } }
+  .xp-period{ font-family: var(--mono); font-size:.78rem; color: var(--green); white-space:nowrap; }
+  .xp-period span{ display:block; color: var(--ink-faint); font-size:.72rem; margin-top:4px; }
+  .xp-role{ font-weight:600; font-size:.98rem; margin-bottom: 4px; }
+  .xp-org{ font-family: var(--mono); font-size:.76rem; color: var(--ink-dim); margin-bottom: 8px; letter-spacing:.03em; }
+  .xp-desc{ color: var(--ink-dim); font-size:.9rem; }
+
+  /* ---------- habilitations ---------- */
+  .hab-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 18px; }
+  .hab-chip{
+    font-family: var(--mono); font-size:.76rem; color: var(--amber);
+    border: 1px solid var(--rule); padding: 8px 14px; display:flex; align-items:center; gap:8px;
+  }
+  .hab-chip::before{ content:"⚡"; font-size:.8rem; }
+
+  footer{ padding: 40px 0 60px; text-align:center; }
+  footer .foot-line{
+    font-family: var(--mono); font-size:.78rem; color: var(--ink-faint); letter-spacing:.04em;
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">SAMY<span>_</span>NAOUE</div>
+    <ul class="nav-links">
+      <li><a href="#profil">Profil</a></li>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#experiences">Expériences</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="status-pill"><span class="dot"></span> DISPONIBLE — ALTERNANCE SEPT. 2026</div>
+
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">// Ingénieur automatisme & systèmes de contrôle</span>
+      <h1>Samy Naoue</h1>
+      <p class="hero-sub">Je conçois des systèmes qui se stabilisent tout seuls — des boucles de commande industrielles aux satellites.</p>
+      <p class="hero-body">Étudiant en Master Automatique et Systèmes Électriques (parcours SMART) à l'Université de Lille, diplômé ingénieur en systèmes automatisés. Expérience en programmation d'automates Siemens, conception d'IHM, supervision et gestion technique de bâtiment — avec une vraie passion pour l'aérospatial.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#contact">Me contacter</a>
+        <a class="btn btn-ghost" href="#projets">Voir les projets</a>
+      </div>
+    </div>
+
+    <div class="scope">
+      <div class="scope-head"><span>ATT-CTRL // NANOSAT-01</span><span>LIVE</span></div>
+      <svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle class="orbit" cx="130" cy="120" r="86"/>
+        <g class="sat-group">
+          <rect x="118" y="108" width="24" height="24" fill="none" stroke="#6EE7B0" stroke-width="1.5"/>
+          <rect x="86" y="114" width="26" height="12" fill="none" stroke="#8C9AB8" stroke-width="1.2"/>
+          <rect x="148" y="114" width="26" height="12" fill="none" stroke="#8C9AB8" stroke-width="1.2"/>
+          <line x1="112" y1="120" x2="118" y2="120" stroke="#8C9AB8" stroke-width="1.2"/>
+          <line x1="142" y1="120" x2="148" y2="120" stroke="#8C9AB8" stroke-width="1.2"/>
+          <path class="thruster" d="M118 132 l-10 14 M118 132 l-4 16" stroke="#E8A23A" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        </g>
+        <line x1="130" y1="20" x2="130" y2="34" stroke="#24314D" stroke-width="1"/>
+        <line x1="130" y1="206" x2="130" y2="220" stroke="#24314D" stroke-width="1"/>
+        <line x1="20" y1="120" x2="34" y2="120" stroke="#24314D" stroke-width="1"/>
+        <line x1="226" y1="120" x2="240" y2="120" stroke="#24314D" stroke-width="1"/>
+      </svg>
+      <div class="telemetry">
+        <span>θ&nbsp;: <b>0.00°</b></span>
+        <span>ω&nbsp;: <b>0.00&nbsp;rad/s</b></span>
+        <span>STATUT&nbsp;: <b>STABILISÉ</b></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="profil">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Profil</span>
+      <h2 class="sec-title">Formation & parcours</h2>
+      <p class="sec-note">Une double culture terrain / commande : de la programmation d'automates industriels à la modélisation de lois de commande avancées.</p>
+    </div>
+
+    <div class="profile-grid">
+      <div class="profile-text">
+        <p>Je suis actuellement en <strong>Master Automatique et Systèmes Électriques</strong>, parcours <strong>SMART (Systèmes, Machines Autonomes et Réseaux de Terrain)</strong> à l'Université de Lille, après un diplôme d'ingénieur en systèmes automatisés obtenu à l'École Nationale Supérieure Polytechnique de Douala.</p>
+        <p>Côté terrain, j'ai une expérience industrielle en <strong>programmation d'automates Siemens (S7-400 / S7-300)</strong>, conception d'<strong>IHM</strong>, systèmes de supervision, et gestion technique de bâtiment / énergie. Côté théorie, je travaille sur la représentation d'état, les observateurs, la commande LQR et la stabilité de Lyapunov.</p>
+        <p>Ce qui me porte au-delà du cahier des charges : une passion sincère pour l'aérospatial, nourrie par des lectures comme celles d'Hubert Reeves, Ann Druyan et Ashlee Vance.</p>
+      </div>
+
+      <div>
+        <div class="spec-sheet">
+          <div class="spec-row"><div class="k">Formation</div><div class="v">Master Automatique & Systèmes Électriques — parcours SMART, Université de Lille</div></div>
+          <div class="spec-row"><div class="k">Diplôme</div><div class="v">Ingénieur en systèmes automatisés, ENSP Douala</div></div>
+          <div class="spec-row"><div class="k">Terrain</div><div class="v">TIA Portal, Siemens S7-400/S7-300, IHM, supervision, GTB</div></div>
+          <div class="spec-row"><div class="k">Recherche</div><div class="v">Alternance 24 mois, dès sept. 2026 — industries 4.0, aérospatial & automatisme industriel ou stage en janv. 2027 </div></div>
+        </div>
+        <div class="quote-block">
+          « Concevoir un système de commande, c'est apprendre à un objet à retrouver son équilibre tout seul. »
+          <cite>— sur l'intérêt pour la commande non linéaire et l'attitude control</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projets">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Projets</span>
+      <h2 class="sec-title">Travaux techniques récents</h2>
+      <p class="sec-note">Des boucles de commande simulées aux chaînes IoT bout en bout.</p>
+    </div>
+
+    <div class="proj-grid">
+      <div class="card">
+        <h3>Contrôle d'attitude de nanosatellite</h3>
+        <p>Modélisation Simulink d'une loi de commande non linéaire basée sur Lyapunov, en trois volets : retour d'état 2D avec commande bang-bang, pleine actuation 3D à gain diagonal, et commande non linéaire 1D sous-actionnée avec terme exponentiel. Débogage d'une erreur de dimension de S-function.</p>
+        <div class="chips"><span class="chip">MATLAB/Simulink</span><span class="chip">Lyapunov</span><span class="chip">Commande non linéaire</span></div>
+      </div>
+
+      <div class="card">
+        <h3>Chaîne IoT de monitoring médical</h3>
+        <p>Pipeline temps réel simulant six dispositifs médicaux connectés, avec agrégation en périphérie, détection d'anomalies et publication double-broker vers le cloud.</p>
+        <div class="chips"><span class="chip">MQTT / Mosquitto</span><span class="chip">AWS IoT Core</span><span class="chip">MongoDB / DynamoDB</span><span class="chip">Python</span></div>
+      </div>
+
+      <div class="card">
+        <h3>Régulation d'un canal de navigation</h3>
+        <p>LQR augmenté à 7 états avec observateur de Luenberger (pôles placés à 5× ceux de la commande), sur un modèle hydraulique non linéaire de Saint-Venant (différences finies amont). Livrable accompagné d'une animation isométrique d'écluse en canvas.</p>
+        <div class="chips"><span class="chip">LQR</span><span class="chip">Observateur de Luenberger</span><span class="chip">Simulink</span></div>
+      </div>
+
+      <div class="card">
+        <h3>Contrôleurs de feux de circulation</h3>
+        <p>Logique d'intersection sur Arduino avec temporisation non bloquante via <code>millis()</code>, et mode maintenance dédié.</p>
+        <div class="chips"><span class="chip">Arduino</span><span class="chip">C++</span><span class="chip">Logique séquentielle</span></div>
+      </div>
+
+      <div class="card">
+        <h3>Simulation RFID — Factory I/O</h3>
+        <p>Exploration d'une communication Modbus TCP/IP pour une simulation RFID, réalisée sans passer par TIA Portal.</p>
+        <div class="chips"><span class="chip">Modbus TCP/IP</span><span class="chip">Factory I/O</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="competences">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Compétences</span>
+      <h2 class="sec-title">Boîte à outils</h2>
+    </div>
+
+    <div class="skill-grid">
+      <div class="skill-col">
+        <h4>Automatisme industriel</h4>
+        <ul>
+          <li>TIA Portal</li>
+          <li>Siemens S7-400 / S7-300</li>
+          <li>Vijeo Citect · PcVue</li>
+          <li>Unity Pro XL</li>
+          <li>Conception IHM & supervision</li>
+          <li>Gestion technique de bâtiment / énergie</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h4>Théorie de la commande</h4>
+        <ul>
+          <li>Représentation d'état</li>
+          <li>Discrétisation (ZOH / Tustin)</li>
+          <li>Commande LQR</li>
+          <li>Observateurs de Luenberger</li>
+          <li>Stabilité de Lyapunov</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h4>Programmation</h4>
+        <ul>
+          <li>Python</li>
+          <li>MATLAB / Simulink</li>
+          <li>SQL</li>
+          <li>C# · .NET Core MVC</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Certifications</span>
+      <h2 class="sec-title">Formation continue</h2>
+    </div>
+
+    <div class="cert-list">
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">Siemens S7-1200 PLC & IHM via TIA Portal (Advanced)</div>
+          <div class="cert-meta">Udemy</div>
+        </div>
+        <div class="cert-hours">14,5 h</div>
+        <div class="cert-date">Mai 2026</div>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">IoT for Industry 4.0 : Cloud, Edge AI & Smart Systems</div>
+          <div class="cert-meta">Udemy</div>
+        </div>
+        <div class="cert-hours">21,5 h</div>
+        <div class="cert-date">Juillet 2026</div>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">Développeur C# — Formation complète 2024</div>
+          <div class="cert-meta">Udemy</div>
+        </div>
+        <div class="cert-hours">24,5 h</div>
+        <div class="cert-date">Sept. 2024</div>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">Créer un site web Pro en C# avec ASP.NET MVC 6 et Bootstrap</div>
+          <div class="cert-meta">Udemy</div>
+        </div>
+        <div class="cert-hours">7,5 h</div>
+        <div class="cert-date">Janv. 2025</div>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">Data Science avec Python en 2025 : le cours ultime</div>
+          <div class="cert-meta">Udemy</div>
+        </div>
+        <div class="cert-hours">52,5 h</div>
+        <div class="cert-date">Juillet 2025</div>
+      </div>
+      <div class="cert-row">
+        <div>
+          <div class="cert-name">QC101 Quantum Computing & Intro to Quantum Machine Learning</div>
+          <div class="cert-meta">Udemy</div>
+        </div>
+        <div class="cert-hours">12 h</div>
+        <div class="cert-date">Nov. 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experiences">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Expériences</span>
+      <h2 class="sec-title">Stages & terrain</h2>
+      <p class="sec-note">Quatre stages académiques et un poste d'assistant maintenance, tous orientés automatisme industriel et instrumentation.</p>
+    </div>
+
+    <div class="xp-list">
+      <div class="xp-row">
+        <div class="xp-period">2024–2025<span>11 mois</span></div>
+        <div>
+          <div class="xp-role">Assistant Maintenance</div>
+          <div class="xp-org">SABC — Groupe Castel Cameroun · Maintenance</div>
+          <div class="xp-desc">Mise en place d'un projet de centralisation des données de consommation énergétique du site.</div>
+        </div>
+      </div>
+      <div class="xp-row">
+        <div class="xp-period">2024<span>7 mois</span></div>
+        <div>
+          <div class="xp-role">Stagiaire académique</div>
+          <div class="xp-org">Omnium Service — SNEF Cameroun · Industrie</div>
+          <div class="xp-desc">Conception d'une Gestion Technique de Bâtiment (R+8) pour l'immeuble BGFI Bank à Douala-Bonapriso.</div>
+        </div>
+      </div>
+      <div class="xp-row">
+        <div class="xp-period">2023<span>2 mois</span></div>
+        <div>
+          <div class="xp-role">Stagiaire académique</div>
+          <div class="xp-org">Dangote Cement · Électricité et Instrumentation</div>
+          <div class="xp-desc">Optimisation du système d'aiguillage des sacs, commandé par des automates Siemens Simatic S7-400 et S7-300.</div>
+        </div>
+      </div>
+      <div class="xp-row">
+        <div class="xp-period">2022<span>2 mois</span></div>
+        <div>
+          <div class="xp-role">Stagiaire académique</div>
+          <div class="xp-org">Aluminium du Cameroun · Contrôle et régulation</div>
+          <div class="xp-desc">Conception d'une interface Homme-Machine et analyse fonctionnelle d'une osmoseuse industrielle.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hab-row">
+      <div class="hab-chip">Habilitation électrique — 4 jours, Castel Academy</div>
+      <div class="hab-chip">Sécurité incendie — 2 jours, Castel Academy</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="avail">
+      <div>
+        <span class="tag amber">Disponibilité</span>
+        <h3 style="margin-top:16px;">En recherche d'un stage ou d'une alternance de 12 mois, à partir de septembre 2026</h3>
+        <p>Ciblant des postes en automatisme industriel — contrôle-commande, systèmes embarqués, IIoT et aérospatial.</p>
+        <div class="targets">
+          <span class="chip">Contrôle-commande</span>
+          <span class="chip">Industrie du transport</span>
+          <span class="chip">Systèmes embarqués</span>
+          <span class="chip">IIoT / MES</span>
+        </div>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:samynaoue5@gmail.com">✉ samynaoue5@gmail.com</a>
+        <a href="tel:+330743548209">☎ +33 07 43 54 82 09</a>
+        <a href="https://www.linkedin.com/in/samynaoue-a9235b24b" target="_blank" rel="noopener">↗ LinkedIn</a>
+        <a href="https://github.com/SamyyNaoue-dot" target="_blank" rel="noopener">↗ GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-line">Samy Naoue — Boucle fermée. En attente de votre retour.</div>
+  </div>
+</footer>
+
+</body>
+</html>
