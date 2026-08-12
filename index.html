@@ -166,23 +166,23 @@
   .orbit{ stroke: var(--rule); stroke-dasharray: 3 4; fill:none; }
   .sat-group{ transform-origin: 130px 130px; }
   @media (prefers-reduced-motion: no-preference){
-    .sat-group{ animation: settle 3.4s cubic-bezier(.2,.9,.25,1) 1 both; }
+    .sat-group{ animation: settle 5s cubic-bezier(.2,.9,.25,1) infinite; }
   }
   @keyframes settle{
     0%   { transform: rotate(34deg); }
-    35%  { transform: rotate(-14deg); }
-    55%  { transform: rotate(7deg); }
-    72%  { transform: rotate(-3deg); }
-    85%  { transform: rotate(1.2deg); }
-    100% { transform: rotate(0deg); }
+    24%  { transform: rotate(-14deg); }
+    37%  { transform: rotate(7deg); }
+    49%  { transform: rotate(-3deg); }
+    58%  { transform: rotate(1.2deg); }
+    65%, 100% { transform: rotate(0deg); }
   }
   .thruster{ opacity:0; }
   @media (prefers-reduced-motion: no-preference){
-    .thruster{ animation: puff 3.4s ease-in-out 1 both; }
+    .thruster{ animation: puff 5s ease-in-out infinite; }
   }
   @keyframes puff{
-    0%,30%{ opacity:0; } 34%{ opacity:1; } 46%{ opacity:0; }
-    50%,60%{opacity:0;} 63%{opacity:.8;} 70%{opacity:0;}
+    0%,23%{ opacity:0; } 27%{ opacity:1; } 31%{ opacity:0; }
+    38%,42%{opacity:0;} 43%{opacity:.8;} 48%{opacity:0;}
     100%{opacity:0;}
   }
   .telemetry{
@@ -344,8 +344,8 @@
     <div>
       <span class="eyebrow">// Ingénieur automatisme & systèmes de contrôle</span>
       <h1>Samy Naoue</h1>
-      <p class="hero-sub">Je conçois des systèmes qui se stabilisent tout seuls — des boucles de commande industrielles aux satellites.</p>
-      <p class="hero-body">Étudiant en Master Automatique et Systèmes Électriques (parcours SMART) à l'Université de Lille, diplômé ingénieur en systèmes automatisés. Expérience en programmation d'automates Siemens, conception d'IHM, supervision et gestion technique de bâtiment — avec une vraie passion pour l'aérospatial.</p>
+      <p class="hero-sub">Je conçois des systèmes qui se stabilisent tout seuls : des boucles de commande industrielles aux satellites.</p>
+      <p class="hero-body">Étudiant en Master Automatique et Systèmes Électriques (parcours SMART) à l'Université de Lille, diplômé ingénieur en systèmes automatisés. Expérience en programmation d'automates Siemens, conception d'IHM, supervision et gestion technique de bâtiment. Avec une vraie passion pour l'aérospatial.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#contact">Me contacter</a>
         <a class="btn btn-ghost" href="#projets">Voir les projets</a>
@@ -395,10 +395,10 @@
 
       <div>
         <div class="spec-sheet">
-          <div class="spec-row"><div class="k">Formation</div><div class="v">Master Automatique & Systèmes Électriques — parcours SMART, Université de Lille</div></div>
+          <div class="spec-row"><div class="k">Formation</div><div class="v">Master Automatique & Systèmes Électriques, parcours SMART (Système Machines Autonomes et Réseaux de Terrain), Université de Lille</div></div>
           <div class="spec-row"><div class="k">Diplôme</div><div class="v">Ingénieur en systèmes automatisés, ENSP Douala</div></div>
           <div class="spec-row"><div class="k">Terrain</div><div class="v">TIA Portal, Siemens S7-400/S7-300, IHM, supervision, GTB</div></div>
-          <div class="spec-row"><div class="k">Recherche</div><div class="v">Alternance 24 mois, dès sept. 2026 — industries 4.0, aérospatial & automatisme industriel ou stage en janv. 2027 </div></div>
+          <div class="spec-row"><div class="k">Recherche</div><div class="v">Alternance 24 mois, dès sept. 2026, industries 4.0, aérospatial & automatisme industriel ou stage en janv. 2027</div></div>
         </div>
         <div class="quote-block">
           « Concevoir un système de commande, c'est apprendre à un objet à retrouver son équilibre tout seul. »
@@ -440,6 +440,12 @@
         <h3>Contrôleurs de feux de circulation</h3>
         <p>Logique d'intersection sur Arduino avec temporisation non bloquante via <code>millis()</code>, et mode maintenance dédié.</p>
         <div class="chips"><span class="chip">Arduino</span><span class="chip">C++</span><span class="chip">Logique séquentielle</span></div>
+      </div>
+
+      <div class="card">
+        <h3>Comparatif Tazzari Zero / Renault Twizy</h3>
+        <p>Projet de bureau d'étude comparant les performances de deux véhicules électriques urbains selon la norme ECE, dans le cadre du Master SMART.</p>
+        <div class="chips"><span class="chip">Véhicule électrique</span><span class="chip">Norme ECE</span><span class="chip">Bureau d'étude</span></div>
       </div>
 
       <div class="card">
@@ -557,7 +563,7 @@
   <div class="wrap">
     <div class="sec-head">
       <span class="tag">Expériences</span>
-      <h2 class="sec-title">Stages & terrain</h2>
+      <h2 class="sec-title">Stages & terrain, au Cameroun</h2>
       <p class="sec-note">Quatre stages académiques et un poste d'assistant maintenance, tous orientés automatisme industriel et instrumentation.</p>
     </div>
 
@@ -609,7 +615,7 @@
       <div>
         <span class="tag amber">Disponibilité</span>
         <h3 style="margin-top:16px;">En recherche d'un stage ou d'une alternance de 12 mois, à partir de septembre 2026</h3>
-        <p>Ciblant des postes en automatisme industriel — contrôle-commande, systèmes embarqués, IIoT et aérospatial.</p>
+        <p>Ciblant des postes en aérospatial et en automatisme industriel — contrôle-commande, systèmes embarqués, IIoT.</p>
         <div class="targets">
           <span class="chip">Contrôle-commande</span>
           <span class="chip">Industrie du transport</span>
